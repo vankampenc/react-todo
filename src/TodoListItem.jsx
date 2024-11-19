@@ -1,5 +1,4 @@
-const TodoListItem = (props) => {
-    const { todo } = props
+const TodoListItem = ({todo}) => {
 
      return (
             <li>{todo.title}</li>
