@@ -1,11 +1,8 @@
-const TodoListItem = (props) => {
-    const { todo } = props
+const TodoListItem = ({todo}) => {
 
 
      return (
-        <div>
             <li>{todo.title}</li>
-        </div>
      )    
 }
 
