@@ -11,13 +11,9 @@ const AddTodoForm = (props) => {
 
     const handleAddTodo = (event) => {
         event.preventDefault()
-<<<<<<< HEAD
-=======
-        const todoTitle = event.target.title.value
         console.log(todoTitle)
->>>>>>> origin/main
-        props.onAddTodo(todoTitle)
-        event.target.reset()
+        props.onAddTodo({title: todoTitle, id: Date.now()})
+        setTodoTitle("")
     }
 
     return (
