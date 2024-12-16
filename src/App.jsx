@@ -3,7 +3,7 @@ import './App.css'
 import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm'
 
-function useSemiPersistentState() {
+const useSemiPersistentState = () => {
   
   const [todoList, setTodoList] = useState(() => {
     const savedTodoList = localStorage.getItem('savedTodoList')
@@ -17,10 +17,21 @@ function useSemiPersistentState() {
   return [todoList, setTodoList]
 }
 
+
 function App() {
   const [todoList, setTodoList]  = useSemiPersistentState()
 
-  function addTodo(newTodo) {
+  const removeTodo = (id) => {
+    const itemList = todoList.filter((item) => {
+      console.log(item)
+      console.log(item.id)
+      console.log(id)
+      return item.id !== id
+    })
+    setTodoList(itemList)
+  }
+
+  const addTodo = (newTodo) => {
     const newList = [...todoList, newTodo]
     setTodoList(newList)
   }
@@ -30,7 +41,7 @@ function App() {
     <>
       <h1>Todo List</h1>
       <AddTodoForm onAddTodo={addTodo}/>
-      <TodoList todoList={todoList}/>
+      <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
     </>
   )
 }
