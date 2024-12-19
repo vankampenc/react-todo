@@ -18,7 +18,6 @@ function App() {
       }, "2000")
     })
       .then((result) => {
-        console.log("result", result)
         setTodoList(result.data.todoList)
         setIsLoading(false)
       })
@@ -32,9 +31,6 @@ function App() {
 
   const removeTodo = (id) => {
     const itemList = todoList.filter((item) => {
-      console.log(item)
-      console.log(item.id)
-      console.log(id)
       return item.id !== id
     })
     setTodoList(itemList)
