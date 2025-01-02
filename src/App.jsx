@@ -8,25 +8,26 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true)
 
+  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`
+
   const fetchData = async () => {
-    const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`
     const options = {
       method: 'GET', headers: { Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}` }
     }
     try {
       const response = await fetch(url, options)
-      if(!response.ok) {
+      if (!response.ok) {
         throw new Error(`Error: ${response.status}`)
       }
       const data = await response.json()
 
-      const todos = data.records.map((todo) => {        
-        const newTodo =  {
+      const todos = data.records.map((todo) => {
+        const newTodo = {
           title: todo.fields.title,
           id: todo.id
-      }
+        }
 
-      return newTodo
+        return newTodo
       })
 
       setTodoList(todos)
@@ -36,20 +37,6 @@ function App() {
       console.log(error)
     }
   }
-  // () => {
-  //   new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       const savedTodoList = localStorage.getItem('savedTodoList')
-  //       const newTodoList = savedTodoList ? JSON.parse(savedTodoList) : []
-
-  //       resolve({ data: { todoList: newTodoList } })
-  //     }, "2000")
-  //   })
-  //     .then((result) => {
-  //       setTodoList(result.data.todoList)
-  //       setIsLoading(false)
-  //     })
-  // }, []
 
   useEffect(() => { fetchData() }, [])
 
@@ -66,9 +53,38 @@ function App() {
     setTodoList(itemList)
   }
 
-  const addTodo = (newTodo) => {
-    const newList = [...todoList, newTodo]
-    setTodoList(newList)
+  const addTodo = async (newTodo) => {
+    // const newList = [...todoList, newTodo] 
+    // setTodoList(newList)
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(
+        {
+          fields: { 'title': newTodo.title }
+        }),
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+        'Content-Type': 'application/json',
+      }
+    }
+    try {
+      const response = await fetch(url, options)
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`)
+      }
+      const data = await response.json()
+      console.log(data)
+
+      //create new list item data.fields.title
+      const newListItem = {title: data.fields.title, id: data.id}
+      //add item to current list with spread operators
+      const newList = [...todoList, newListItem]
+      //setTodoList
+      setTodoList(newList)
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
