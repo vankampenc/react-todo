@@ -1,8 +1,5 @@
-# React + Vite
+# About
+This project encompasses the skills learned from the front-end React advanced course. Notable skills learned include: Components, Props, State, Handlers, Hooks, and Fetch.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Viewing Instructions
+To view, please run "npm run dev" and navigate to localhost:3000.
