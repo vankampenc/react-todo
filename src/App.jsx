@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 
 function App() {
   const [todoList, setTodoList] = useState([])
@@ -34,7 +36,7 @@ function App() {
       setIsLoading(false)
 
     } catch (error) {
-      console.log(error)
+      console.error()
     }
   }
 
@@ -76,7 +78,7 @@ function App() {
       console.log(data)
 
       //create new list item data.fields.title
-      const newListItem = {title: data.fields.title, id: data.id}
+      const newListItem = { title: data.fields.title, id: data.id }
       //add item to current list with spread operators
       const newList = [...todoList, newListItem]
       //setTodoList
@@ -88,11 +90,22 @@ function App() {
   }
 
   return (
-    <>
-      <h1>Todo List</h1>
-      <AddTodoForm onAddTodo={addTodo} />
-      {isLoading ? <p>Loading List...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={
+          <>
+            <h1>Todo List</h1>
+            <AddTodoForm onAddTodo={addTodo} />
+            {isLoading ? <p>Loading List...</p> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+          </>
+        }>
+        </Route>
+        <Route path="/new" element={
+          <h1>New Todo List</h1>
+        }>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
