@@ -1,9 +1,10 @@
-import TodoListItem from "./TodoListItem"
+import TodoListItem from "../TodoListItem/TodoListItem"
+import style from "./TodoList.module.css"
 
 const TodoList = ({todoList, onRemoveTodo}) => {
 
     return (
-            <ul>
+            <ul className={style.TodoList}>
                 {todoList.map(
                     (todo) => <TodoListItem key={todo.id} todo={todo} onRemoveTodo={onRemoveTodo}/>
                 )
