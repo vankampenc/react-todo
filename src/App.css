@@ -40,3 +40,11 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* Phones Screens */
+@media (max-width: 450px) {
+  #root {
+    padding: 0;
+  }
+}
